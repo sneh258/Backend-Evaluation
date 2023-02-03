@@ -8,7 +8,7 @@ const route  = require('./src/routes/company');
 
 
 app.use(express.json());
-app.use('/api', route.router);   
+app.use('/api', route);   
 
 
 
