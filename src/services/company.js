@@ -1,11 +1,11 @@
 const axios = require('axios');
 const { Company, Sector } = require('../../database/models');
-const utils = require('../utils');
+const utils = require('../utils/readData');
 const handleCompanyURL='http://54.167.46.10/company/95b5a067-808a-44a9-a490-b4ef8a045f61';
 const handleSectorURL='http://54.167.46.10/sector?name=Software';
 
-const getData = async ({ url }) => {
-    const csv = await axios.get(url);
+const getData = async () => {
+    const csv = await axios.get('https://store-0001.s3.amazonaws.com/input.csv');
     const lines = utils.readData(csv);
 
     lines.forEach(async (line, index) => {
