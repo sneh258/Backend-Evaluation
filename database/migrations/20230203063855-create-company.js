@@ -18,7 +18,7 @@ module.exports = {
                 type: Sequelize.STRING
             },
             score: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.FLOAT,
                 defaultValue:0
             },
             sector_id: {
