@@ -3,7 +3,7 @@ const getServices = require('./../../src/services/company');
 
 describe('Company Controllers', () => {
     it('should return an array of objects', async () => {
-        jest.spyOn(getServices, 'save').mockResolvedValue([
+        jest.spyOn(getServices, 'getData').mockResolvedValue([
             {
                 id: 1
             }
@@ -18,7 +18,7 @@ describe('Company Controllers', () => {
             json: jest.fn()
 
         };
-        await getControllers.save(mockReq, mockRes);
+        await getControllers.getData(mockReq, mockRes);
         expect(mockRes.status).toBeCalledWith(200);
         expect(mockRes.json).toBeCalledWith(
             [
