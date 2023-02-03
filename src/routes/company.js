@@ -1,9 +1,9 @@
 const express = require('express');
 const  companyController = require('../controllers/company');
-const middlewares = require('../middlewares');
+const middleware = require('../middleware/bodyValidation');
 const router = express.Router();
 
 router.route('/save')
-    .post(middlewares.bodyValidation, companyController.getData);
+    .post(middleware, companyController.getData);
 
 module.exports = router;
