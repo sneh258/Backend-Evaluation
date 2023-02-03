@@ -39,7 +39,7 @@ describe('Company Controllers', () => {
             json: jest.fn()
 
         };
-        await getControllers.save(mockReq, mockRes);
+        await getControllers.getData(mockReq, mockRes);
         expect(mockRes.status).toBeCalledWith(500);
         expect(mockRes.json).toBeCalledWith({
             error: 'Internal Server error!!'
