@@ -1,4 +1,4 @@
-const { companyService } = require('../services');
+const companyService  = require('../services/company');
 const getData = async (req, res) => {
     try {
         const body = req.body;
@@ -12,4 +12,4 @@ const getData = async (req, res) => {
     }
 };
 
-module.exports = {getData};
+module.exports = getData;
