@@ -10,17 +10,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
         static associate(models) {
+            // define association here
             Company.belongsTo(models.Sector, {
                 as: 'sector',
                 foreignKey: 'sector_id',
-            });       
+            });
+
         }
     }
     Company.init({
         name: DataTypes.STRING,
         ceo: DataTypes.STRING,
         description: DataTypes.STRING,
-        score: DataTypes.INTEGER,
+        score: DataTypes.STRING,
         sector_id: DataTypes.INTEGER,
         address: DataTypes.STRING
     }, {
