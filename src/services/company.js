@@ -59,12 +59,15 @@ const getScore = async (query) => {
     return found;
 };
 
-const updateCompanyDetails = async (id, bodyCeo,bodyAddress) => {
+const updateCompanyDetails = async (id, body) => {
     const company = await Company.findOne({ where: { id: id } });
     if(!company)
         return {};
-        
-    Company.update({ ceo: bodyCeo, address: bodyAddress }, { where: { id: id } });
+    const ceo = body.ceo ? body.ceo : company.data.ceo;
+    const address = body.address ? body.address : company.data.address;
+
+    
+    Company.update({ ceo: ceo, address:address }, { where: { id: id } });
     return Company.findAll({where:{id:id}});
 };
 
