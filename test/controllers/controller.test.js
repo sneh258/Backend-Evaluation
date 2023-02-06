@@ -32,7 +32,7 @@ describe('Company Controllers', () => {
             ]
         );
     });
-    it('should return error', async () => {
+    it('should return error in case of failure of operation', async () => {
         jest.spyOn(getServices, 'getData').mockRejectedValue(new Error('Internal Server error!!'));
 
         const mockReq = {};
