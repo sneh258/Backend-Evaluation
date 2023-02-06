@@ -1,115 +1,62 @@
-const {Company,Sector}=require('./../../database/models');
-const getServices=require('./../../src/services/company');
+const { Company } = require('./../../database/models');
+const getServices = require('./../../src/services/company');
 
 
 describe('Testing Services', () => {
-    
-    // it('should return the deatils of the table Company', async () => {
-    //     jest.spyOn(Company, 'create').mockResolvedValue([
-    //         {
-    //             'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-    //             'name': 'D-Mart',
-    //             'score': '19.569474999999997'
-    //         }
-    //     ]
-    //     );
 
-    //     const data = await getServices.getData();
-    //     expect(data).toEqual(
-    //         [
-    //             {
-    //                 'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-    //                 'name': 'D-Mart',
-    //                 'score': '19.569474999999997'
-    //             }
-
-    //         ]
-    //     );
-
-    //     jest.spyOn(Sector, 'create').mockResolvedValue([
-    //         {
-    //             'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-    //             'name': 'D-Mart',
-                
-    //         }
-    //     ]
-    //     );
-
-    //     jest.spyOn(Company, 'update').mockResolvedValue([
-    //         {
-    //             'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-    //             'score': '19.569474999999997'
-                
-    //         }
-    //     ]
-    //     );
-
-    //     jest.spyOn(Company, 'findAll').mockResolvedValue([
-    //         {
-    //             'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-    //             'name': 'D-Mart',
-    //             'score': '19.569474999999997'
-    //         }
-    //     ]
-    //     );
-
-        
-
-    //     const dataOne = await getServices.getData();
-    //     expect(dataOne).toEqual(
-    //         [
-    //             {
-    //                 'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-    //                 'name': 'D-Mart',
-    //                 'score': '19.569474999999997'
-    //             }
-
-    //         ]
-    //     );
-
-
-    // });
-
-
-
-
-    it('should return an array of objects', async () => {
-        jest.spyOn(Company, 'findOne').mockResolvedValue([
-            {
-                'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-            
+    it('should return updated company when company present and update method called', async () => {
+        const id = '95b5a067-808a-44a9-a490-b4ef8a045f61';
+        const body = {
+            ceo: 'ceo',
+            address: 'address'
+        };
+        jest.spyOn(Company, 'findOne').mockResolvedValue({
+            data: {
+                id,
+                name: 'Volkswagen',
+                ceo: 'Mr. Marie Sipes',
+                address: '',
+                score: '18.92',
             }
-        ]
-        );
-        jest.spyOn(Company, 'update').mockResolvedValue([
-            {
-                'ceo': 'sneha',
-                'address': 'kaggadaspura'
+        });
 
-            }
-        ]
-        );
+        jest.spyOn(Company, 'update').mockResolvedValue([1]);
+        jest.spyOn(Company, 'findAll').mockResolvedValue({
+            address: null,
+            ceo: 'Grady Smitham',
+            createdAt: '2023-02-05T19:23:03.975Z',
+            description: null,
+            id: '95b5a067-808a-44a9-a490-b4ef8a045f61',
+            name: 'Volkswagen',
+            score: '15.784075000000001',
+            sector_id: 61,
+            updatedAt: '2023-02-05T19:23:04.489Z',
+        });
 
-        jest.spyOn(Company, 'findAll').mockResolvedValue([
-            {
-                'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-                'name': 'D-Mart',
-                'score': '19.569474999999997'
-            }
-        ]
-        );
+        const updatedCompany = await getServices.updateCompanyDetails(id, body);
+        expect(updatedCompany).toEqual({
+            address: null,
+            ceo: 'Grady Smitham',
+            createdAt: '2023-02-05T19:23:03.975Z',
+            description: null,
+            id: '95b5a067-808a-44a9-a490-b4ef8a045f61',
+            name: 'Volkswagen',
+            score: '15.784075000000001',
+            sector_id: 61,
+            updatedAt: '2023-02-05T19:23:04.489Z',
+        });
+    });
 
-        const data = await getServices.updateCompanyDetails();
-        expect(data).toEqual(
-            [
-                {
-                    'id': '24ca0568-d946-4c14-a0d7-eb81295b7a9e',
-                    'name': 'D-Mart',
-                    'score': '19.569474999999997'
-                }
+    it('should return empty object when company not present and update method called', async () => {
+        const id = '95b5a067-808a-44a9-a490-b4ef8a045f61';
+        const body = {
+            ceo: 'ceo',
+            address: 'address'
+        };
+        jest.spyOn(Company, 'findOne').mockResolvedValue(null);
 
-            ]
-        );
+        const updatedCompany = await getServices.updateCompanyDetails(id, body);
+        expect(updatedCompany).toEqual({});
     });
 
 
